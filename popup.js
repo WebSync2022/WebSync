@@ -11,6 +11,11 @@ changeColor.addEventListener("click", async () => {
 
   chrome.scripting.executeScript({
     target: { tabId: tab.id },
+    function: setPausePlay,
+  });
+
+  chrome.scripting.executeScript({
+    target: { tabId: tab.id },
     function: setPageBackgroundColor,
   });
 });
@@ -21,4 +26,13 @@ function setPageBackgroundColor() {
   chrome.storage.sync.get("color", ({ color }) => {
     document.body.style.backgroundColor = color;
   });
+}
+
+function setPausePlay() {
+  var youtube = document.querySelector("video");
+  if (youtube.paused) {
+    youtube.play();
+  } else {
+    youtube.pause();
+  }
 }
