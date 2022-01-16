@@ -8,19 +8,21 @@ socket.on("connect", function () {
 
 chrome.storage.local.get(["sessionInfo"], (result) => {
   room = result.sessionInfo.joinedWith;
+  socket.emit("join session", room, "archit");
+  console.log("user joined", room);
 });
 
 chrome.storage.onChanged.addListener(() => {
   chrome.storage.local.get(["sessionInfo"], (result) => {
     room = result.sessionInfo.joinedWith;
+    socket.emit("join session", room, "archit");
+    console.log("user joined", room);
   });
 });
 
 const video = document.querySelector("video");
 video.addEventListener("pause", (event) => {
   {
-    socket.emit("join session", room, "archit");
-
     console.log("video is paused");
     var currentTime = video.currentTime;
 
@@ -36,7 +38,6 @@ video.addEventListener("pause", (event) => {
 
 video.addEventListener("play", (event) => {
   {
-    socket.emit("join session", room, "archit");
     console.log("video is playing");
     var currentTime = video.currentTime;
 
