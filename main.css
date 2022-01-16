@@ -1,64 +1,85 @@
-body{
-    width:300px;
-    height:400px;
-    padding: 10px;
+body {
+  width: 200px;
+  height: 150px;
+  padding: 0px;
+  background: #b9410a;
+  background-image: -webkit-linear-gradient(top, #b9410a, #2bb889);
+  background-image: -moz-linear-gradient(top, #b9410a, #2bb889);
+  background-image: -ms-linear-gradient(top, #b9410a, #2bb889);
+  background-image: -o-linear-gradient(top, #b9410a, #2bb889);
+  background-image: linear-gradient(to bottom, #b9410a, #2bb889);
+  border-radius: 10px;
+  box-sizing: border-box;
+  z-index: 2;
+  text-align: center;
 }
+
+.header {
+  font: "Times New Roman";
+  color: #000000;
+  text-decoration: underline;
+}
+.room {
+  font: "Roboto";
+  color: #110768;
+}
+
 .joinSessionBtn {
-  background: #34d981;
-  background-image: -webkit-linear-gradient(top, #34d981, #2bb889);
-  background-image: -moz-linear-gradient(top, #34d981, #2bb889);
-  background-image: -ms-linear-gradient(top, #34d981, #2bb889);
-  background-image: -o-linear-gradient(top, #34d981, #2bb889);
-  background-image: linear-gradient(to bottom, #34d981, #2bb889);
+  background: #3437d9;
+  background-image: -webkit-linear-gradient(top, #3437d9, #2bb889);
+  background-image: -moz-linear-gradient(top, #3437d9, #2bb889);
+  background-image: -ms-linear-gradient(top, #3437d9, #2bb889);
+  background-image: -o-linear-gradient(top, #3437d9, #2bb889);
+  background-image: linear-gradient(to bottom, #3437d9, #2bb889);
   -webkit-border-radius: 9;
   -moz-border-radius: 9;
   border-radius: 9px;
   font-family: Arial;
-  color: #ffffff;
+  color: #000000;
   font-size: 20px;
   padding: 10px 20px 10px 20px;
   text-decoration: none;
 }
 
 .joinSession:hover {
-  background: #3cfc8f;
-  background-image: -webkit-linear-gradient(top, #3cfc8f, #34d97b);
-  background-image: -moz-linear-gradient(top, #3cfc8f, #34d97b);
-  background-image: -ms-linear-gradient(top, #3cfc8f, #34d97b);
-  background-image: -o-linear-gradient(top, #3cfc8f, #34d97b);
-  background-image: linear-gradient(to bottom, #3cfc8f, #34d97b);
+  background: #001575;
+  background-image: -webkit-linear-gradient(top, #001575, #34d97b);
+  background-image: -moz-linear-gradient(top, #001575, #34d97b);
+  background-image: -ms-linear-gradient(top, #001575, #34d97b);
+  background-image: -o-linear-gradient(top, #001575, #34d97b);
+  background-image: linear-gradient(to bottom, #001575, #34d97b);
   text-decoration: none;
 }
 
 .createSessionBtn {
-  background: #3497d9;
-  background-image: -webkit-linear-gradient(top, #3497d9, #2cb3b8);
-  background-image: -moz-linear-gradient(top, #3497d9, #2cb3b8);
-  background-image: -ms-linear-gradient(top, #3497d9, #2cb3b8);
-  background-image: -o-linear-gradient(top, #3497d9, #2cb3b8);
-  background-image: linear-gradient(to bottom, #3497d9, #2cb3b8);
+  background: #344dd9;
+  background-image: -webkit-linear-gradient(top, #344dd9, #2cb3b8);
+  background-image: -moz-linear-gradient(top, #344dd9, #2cb3b8);
+  background-image: -ms-linear-gradient(top, #344dd9, #2cb3b8);
+  background-image: -o-linear-gradient(top, #344dd9, #2cb3b8);
+  background-image: linear-gradient(to bottom, #344dd9, #2cb3b8);
   -webkit-border-radius: 9;
   -moz-border-radius: 9;
   border-radius: 9px;
   font-family: Arial;
-  color: #ffffff;
+  color: #000000;
   font-size: 20px;
   padding: 10px 20px 10px 20px;
   text-decoration: none;
 }
 
 .createSession:hover {
-  background: #3ce4fa;
-  background-image: -webkit-linear-gradient(top, #3ce4fa, #34d9d1);
-  background-image: -moz-linear-gradient(top, #3ce4fa, #34d9d1);
-  background-image: -ms-linear-gradient(top, #3ce4fa, #34d9d1);
-  background-image: -o-linear-gradient(top, #3ce4fa, #34d9d1);
-  background-image: linear-gradient(to bottom, #3ce4fa, #34d9d1);
+  background: #4f3cfa;
+  background-image: -webkit-linear-gradient(top, #4f3cfa, #34d9d1);
+  background-image: -moz-linear-gradient(top, #4f3cfa, #34d9d1);
+  background-image: -ms-linear-gradient(top, #4f3cfa, #34d9d1);
+  background-image: -o-linear-gradient(top, #4f3cfa, #34d9d1);
+  background-image: linear-gradient(to bottom, #4f3cfa, #34d9d1);
   text-decoration: none;
 }
 
-#flowBtns{
-    margin: 30px 40px;
+#flowBtns {
+  margin: 30px 40px;
 }
 
 .cancel {
@@ -72,7 +93,7 @@ body{
   -moz-border-radius: 9;
   border-radius: 9px;
   font-family: Arial;
-  color: #ffffff;
+  color: #000000;
   font-size: 20px;
   padding: 10px 20px 10px 20px;
   text-decoration: none;
@@ -88,7 +109,7 @@ body{
   text-decoration: none;
 }
 
-#logs{
-    width: 200px;
-    height: 200px;
+#logs {
+  width: 200px;
+  height: 200px;
 }
