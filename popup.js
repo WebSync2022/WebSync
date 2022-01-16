@@ -1,5 +1,5 @@
 // Initialize butotn with users's prefered color
-//Start Work
+//Start Work 
 let changeColor = document.getElementById("changeColor");
 
 const joinSession = document.getElementById("joinSessionBtn");
