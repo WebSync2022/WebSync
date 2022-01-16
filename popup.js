@@ -5,34 +5,42 @@ chrome.storage.sync.get("color", ({ color }) => {
   changeColor.style.backgroundColor = color;
 });
 
+// const youtube = document.querySelector("video");
+
+// youtube.addEventListener("pause", (event) => {
+//   if (youtube.paused) {
+//     youtube.play();
+//   } else {
+//     youtube.pause();
+//   }
+// });
+
+var socket = io.connect("https://server-e5ic2cscaq-nn.a.run.app/");
+
+socket.on("connect", function () {
+  console.log("Client connected");
+});
+socket.emit("join", "room", "archit");
+
 // When the button is clicked, inject setPageBackgroundColor into current page
 changeColor.addEventListener("click", async () => {
-  let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-
-  chrome.scripting.executeScript({
-    target: { tabId: tab.id },
-    function: setPausePlay,
+  chrome.tabs.executeScript({
+    code: 'var youtube = document.querySelector("video");\nif (youtube.paused){youtube.play();}\nelse {youtube.pause();}',
   });
 
-  chrome.scripting.executeScript({
-    target: { tabId: tab.id },
-    function: setPageBackgroundColor,
-  });
+  // chrome.tabs.executeScript({
+  //   target: { tabId: tab.id },
+  //   function: sendConnection,
+  // });
 });
 
 // The body of this function will be execuetd as a content script inside the
 // current page
-function setPageBackgroundColor() {
-  chrome.storage.sync.get("color", ({ color }) => {
-    document.body.style.backgroundColor = color;
-  });
-}
+// function sendConnection() {
+//   var socket = io.connect("https://server-e5ic2cscaq-nn.a.run.app/");
 
-function setPausePlay() {
-  var youtube = document.querySelector("video");
-  if (youtube.paused) {
-    youtube.play();
-  } else {
-    youtube.pause();
-  }
-}
+//   socket.on("connect", function () {
+//     console.log("Client connected");
+//   });
+//   socket.emit("join", "room", "archit");
+// }
