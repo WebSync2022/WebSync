@@ -51,6 +51,22 @@ video.addEventListener("play", (event) => {
   }
 });
 
+// chrome.tabs.update({ url: "http://www.google.com" });
+// document.location = "http://www.google.com";
+console.log("bitch");
+console.log(document.location);
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  // listen for messages sent from background.js
+  if (request.message === "hello!") {
+    console.log(request.url); // new url is now in content scripts!
+    console.log("here2");
+    socket.emit("sync signal", room, {
+      type: "url",
+      url: request.url,
+    });
+  }
+});
+
 socket.on("signal", (data) => {
   console.log(data);
   console.log(data.type);
@@ -64,6 +80,9 @@ socket.on("signal", (data) => {
     video.currentTime = data.timestamp;
     video.pause();
     console.log(message);
+  } else if (data.type == "url") {
+    console.log(data.url);
+    document.location.href = data.url;
   }
   console.log("done");
 });
