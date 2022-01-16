@@ -6,19 +6,25 @@ socket.on("connect", function () {
   console.log("Client connected");
 });
 
+chrome.storage.local.get(["sessionInfo"], (result) => {
+  room = result.sessionInfo.joinedWith;
+});
+
+chrome.storage.onChanged.addListener(() => {
+  chrome.storage.local.get(["sessionInfo"], (result) => {
+    room = result.sessionInfo.joinedWith;
+  });
+});
+
 const video = document.querySelector("video");
 video.addEventListener("pause", (event) => {
   {
-    let room = "haren";
-    chrome.storage.sync.get("roomID", ({ roomID }) => {
-      socket.emit("join session", roomID, "archit");
-      room = "archit";
-    });
+    socket.emit("join session", room, "archit");
 
     console.log("video is paused");
     var currentTime = video.currentTime;
 
-    socket.emit("sync signal", "room-unique", {
+    socket.emit("sync signal", room, {
       type: "pause",
       timestamp: currentTime,
       message: "hi",
@@ -30,15 +36,11 @@ video.addEventListener("pause", (event) => {
 
 video.addEventListener("play", (event) => {
   {
-    let room = "haren";
-    chrome.storage.sync.get("roomID", ({ roomID }) => {
-      socket.emit("join session", roomID, "archit");
-      room = "Archit";
-    });
+    socket.emit("join session", room, "archit");
     console.log("video is playing");
     var currentTime = video.currentTime;
 
-    socket.emit("sync signal", "room-unique", {
+    socket.emit("sync signal", room, {
       type: "play",
       timestamp: currentTime,
       message: "hi",
