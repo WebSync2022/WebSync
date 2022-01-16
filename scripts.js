@@ -21,6 +21,19 @@ chrome.storage.onChanged.addListener(() => {
 });
 
 const video = document.querySelector("video");
+video.addEventListener("seeked", (event) => {
+  console.log("video is seeked");
+  var currentTime = video.currentTime;
+
+  socket.emit("sync signal", room, {
+    type: "seek",
+    timestamp: currentTime,
+    message: "",
+  });
+  console.log("send seek command");
+  console.log(room);
+});
+
 video.addEventListener("pause", (event) => {
   {
     console.log("video is paused");
@@ -72,7 +85,10 @@ socket.on("signal", (data) => {
   console.log(data.type);
   console.log(data.message);
   console.log(data.timestamp);
-  if (data.type == "play") {
+  if (data.type == "seek") {
+    video.currentTime = data.timestamp;
+    sleep(500);
+  } else if (data.type == "play") {
     video.currentTime = data.timestamp;
     video.play();
     console.log(message);
