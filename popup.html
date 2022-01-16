@@ -1,10 +1,24 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="button.css" />
+    <link rel="stylesheet" href="main.css" />
   </head>
-  <body>
-    <button id="changeColor"></button>
+  <body style="padding: 10px;">
+    <div id="sessionDiv" style="display:none;">
+      <span id="uuid-span"></span>
+      <div id="logs"></div>
+      <button id="disconnect" class="cancel">Disconnet</button>
+    </div>
+    <div id="joinSessionDiv" style="display:none;">
+      <textarea id="sessionIdInput" rows="4" cols="30"></textarea>
+      <button class="joinSessionBtn" id="join">JOIN </button>
+      <button id="cancel" class="cancel">CANCEL</button>
+    </div>
+    <div id="flowBtns">
+      <button class="joinSessionBtn" id="joinSessionBtn">JOIN SESSION</button>
+      <button class="createSessionBtn" id="createSessionBtn">CREATE SESSION</button>
+    </div>
+
     <script src="socket.io.js"></script>
     <script src="popup.js"></script>
   </body>
