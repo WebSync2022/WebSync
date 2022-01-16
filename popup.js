@@ -15,15 +15,16 @@ chrome.storage.sync.get("color", ({ color }) => {
 //   }
 // });
 
-var socket = io.connect("https://server-e5ic2cscaq-nn.a.run.app/");
-
-socket.on("connect", function () {
-  console.log("Client connected");
-});
-socket.emit("join", "room", "archit");
-
 // When the button is clicked, inject setPageBackgroundColor into current page
 changeColor.addEventListener("click", async () => {
+  console.log("startttttttttttttttss");
+  var socket = io.connect("https://server-e5ic2cscaq-nn.a.run.app/");
+
+  socket.on("connect", function () {
+    console.log("Client connected");
+  });
+  socket.emit("join session", "room", "archit");
+
   chrome.tabs.executeScript({
     code: 'var youtube = document.querySelector("video");\nif (youtube.paused){youtube.play();}\nelse {youtube.pause();}',
   });
