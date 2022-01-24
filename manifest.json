@@ -6,7 +6,7 @@
   "background": {
     "scripts": ["background.js","socket.io.js"]
   },
-  "permissions": ["storage", "activeTab","tabs","https://server-e5ic2cscaq-nn.a.run.app/"],
+  "permissions": ["storage", "activeTab","webNavigation","tabs","https://server-e5ic2cscaq-nn.a.run.app/"],
   "browser_action": {
     "default_popup": "popup.html",
     "default_icon": {

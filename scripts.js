@@ -1,6 +1,6 @@
 var currentUrl = window.location.href;
 console.log(currentUrl);
-var isMaster = false;
+var isMaster = true;
 
 var socket = io.connect("https://server-e5ic2cscaq-nn.a.run.app/");
 socket.on("connect", function () {
@@ -22,37 +22,62 @@ chrome.storage.onChanged.addListener(() => {
 });
 
 const video = document.querySelector("video");
-
-video.addEventListener("pause", (event) => {
-  {
-    console.log("video is paused");
+video.addEventListener("click", () => {
+  if (video.paused) {
     var currentTime = video.currentTime;
     isMaster = true;
 
+    isMaster &&
+      socket.emit("sync signal", room, {
+        type: "play",
+        timestamp: currentTime,
+        message: "hi",
+      });
+    console.log("send play command");
+  } else {
+    var currentTime = video.currentTime;
+    isMaster = true;
     isMaster && socket.emit("sync signal", room, {
       type: "pause",
       timestamp: currentTime,
       message: "hi",
     });
     console.log("send pause command");
-    console.log(room);
   }
 });
 
-video.addEventListener("play", (event) => {
-  {
-    console.log("video is playing");
-    var currentTime = video.currentTime;
-    isMaster = true;
-    isMaster && socket.emit("sync signal", room, {
-      type: "play",
-      timestamp: currentTime,
-      message: "hi",
-    });
-    console.log("send play command");
-    console.log(room);
-  }
-});
+// video.addEventListener("pause", (event) => {
+//   {
+//     console.log("video is paused");
+//     var currentTime = video.currentTime;
+//     isMaster = true;
+
+//     isMaster && socket.emit("sync signal", room, {
+//       type: "pause",
+//       timestamp: currentTime,
+//       message: "hi",
+//     });
+//     console.log("send pause command");
+//     console.log(room);
+//     console.log(isMaster);
+//   }
+// });
+
+// video.addEventListener("play", (event) => {
+//   {
+//     console.log("video is playing");
+//     var currentTime = video.currentTime;
+//     isMaster = true;
+//     socket.emit("sync signal", room, {
+//       type: "play",
+//       timestamp: currentTime,
+//       message: "hi",
+//     });
+//     console.log("send play command");
+//     console.log(room);
+//     console.log(isMaster);
+//   }
+// });
 
 // chrome.tabs.update({ url: "http://www.google.com" });
 // document.location = "http://www.google.com";
@@ -62,10 +87,13 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (request.message === "hello!") {
     console.log(request.url); // new url is now in content scripts!
     isMaster = true;
-    isMaster && socket.emit("sync signal", room, {
-      type: "url",
-      url: request.url,
-    });
+
+    isMaster &&
+      socket.emit("sync signal", room, {
+        type: "url",
+        url: request.url,
+      });
+    console.log(isMaster);
   }
 });
 
