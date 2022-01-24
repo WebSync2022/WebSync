@@ -29,6 +29,7 @@ chrome.webNavigation.onHistoryStateUpdated.addListener(function(details) {
 
 chrome.runtime.onMessage.addListener(function(request, sender) {
   if (request.message == "recievedURL"){
+    console.log("received")
     isMasterURL = false;
 
     setTimeout(()=>{
