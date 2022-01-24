@@ -23,6 +23,7 @@ chrome.storage.onChanged.addListener(() => {
 
 const video = document.querySelector("video");
 video.addEventListener("click", () => {
+  console.log("click");
   if (video.paused) {
     var currentTime = video.currentTime;
     isMaster = true;
@@ -45,6 +46,20 @@ video.addEventListener("click", () => {
     console.log("send pause command");
   }
 });
+const timeLine = document.getElementsByClassName("ytp-progress-bar");
+timeLine[0].addEventListener("click", ()=>{
+  console.log("clicked");
+  var currentTime = video.currentTime;
+  isMaster = true;
+  isMaster && socket.emit("sync signal", room, {
+    type: "seek",
+    timestamp: currentTime,
+    message: "hi",
+  });
+  console.log("send seek command");
+  
+});
+
 
 // video.addEventListener("pause", (event) => {
 //   {
@@ -114,5 +129,7 @@ socket.on("signal", (data) => {
   } else if (data.type === "url") {
     console.log(data.url);
     document.location.href = data.url;
+  } else if (data.type === "seek") {
+    video.currentTime = data.timestamp;
   }
 });
