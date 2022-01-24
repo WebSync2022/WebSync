@@ -6,6 +6,5 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
       message: "hello!",
       url: changeInfo.url,
     });
-    console.log("here1");
   }
 });

@@ -2,7 +2,7 @@
 //continuing Work
 let changeColor = document.getElementById("changeColor");
 
-const joinSession = document.getElementById("joinSessionBtn");
+const joinSession = $("#joinSessionBtn");
 const joinFinal = document.getElementById("join");
 const cancelBtn = document.getElementById("cancel");
 const disconnect = document.getElementById("disconnect");
@@ -49,13 +49,13 @@ window.addEventListener("DOMContentLoaded", (event) => {
   });
 });
 
-joinSession.addEventListener("click", () => {
-  const flowBtns = document.getElementById("flowBtns");
-  flowBtns.style.display = "none";
-  const joinSession = document.getElementById("joinSessionDiv");
-  joinSession.style.display = "block";
-  const sessionDiv = document.getElementById("sessionDiv");
-  sessionDiv.style.display = "none";
+joinSession.on("click", () => {
+  const flowBtns = $("#flowBtns");
+  flowBtns.hide();
+  const joinSessionDiv = $("#joinSessionDiv");
+  joinSessionDiv.show()
+  const sessionDiv = $("#sessionDiv");
+  sessionDiv.hide();
 });
 
 joinFinal.addEventListener("click", () => {
