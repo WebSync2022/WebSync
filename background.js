@@ -27,8 +27,8 @@ chrome.webNavigation.onHistoryStateUpdated.addListener(function(details) {
   }
 });
 
-chrome.runtime.onMessage.addListener(function(request, sender) {
-  if (request.message == "recievedURL"){
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+  if (request.message === "recievedURL"){
     console.log("received")
     isMasterURL = false;
 
@@ -36,5 +36,6 @@ chrome.runtime.onMessage.addListener(function(request, sender) {
       isMasterURL = true;
     }, 500);
   }
+  sendResponse();
    
 });
