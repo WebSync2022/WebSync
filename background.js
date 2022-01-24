@@ -8,6 +8,7 @@
 //     });
 //   }
 // });
+var isMasterURL = true;
 chrome.webNavigation.onHistoryStateUpdated.addListener(function(details) {
   if(details.frameId === 0) {
       // Fires only when details.url === currentTab.url
@@ -15,7 +16,7 @@ chrome.webNavigation.onHistoryStateUpdated.addListener(function(details) {
       chrome.tabs.get(details.tabId, function(tab) {
           if(tab.url === details.url) 
           {
-            chrome.tabs.sendMessage(details.tabId, {
+            isMasterURL && chrome.tabs.sendMessage(details.tabId, {
               message: "hello!",
               url: tab.url,
             });
@@ -23,4 +24,15 @@ chrome.webNavigation.onHistoryStateUpdated.addListener(function(details) {
           }
       });
   }
+});
+
+chrome.runtime.onMessage.addListener(function(request, sender) {
+  if (request.message == "recievedURL"){
+    isMasterURL = false;
+
+    setTimeout(()=>{
+      isMasterURL = true;
+    }, 800);
+  }
+   
 });

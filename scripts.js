@@ -128,6 +128,7 @@ socket.on("signal", (data) => {
     console.log(message);
   } else if (data.type === "url") {
     console.log(data.url);
+    chrome.runtime.sendMessage({message:"recievedURL"});
     document.location.href = data.url;
   } else if (data.type === "seek") {
     video.currentTime = data.timestamp;
