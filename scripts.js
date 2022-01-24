@@ -38,28 +38,28 @@ video.addEventListener("click", () => {
   } else {
     var currentTime = video.currentTime;
     isMaster = true;
-    isMaster && socket.emit("sync signal", room, {
-      type: "pause",
-      timestamp: currentTime,
-      message: "hi",
-    });
+    isMaster &&
+      socket.emit("sync signal", room, {
+        type: "pause",
+        timestamp: currentTime,
+        message: "hi",
+      });
     console.log("send pause command");
   }
 });
 const timeLine = document.getElementsByClassName("ytp-progress-bar");
-timeLine[0].addEventListener("click", ()=>{
+timeLine[0].addEventListener("click", () => {
   console.log("clicked");
   var currentTime = video.currentTime;
   isMaster = true;
-  isMaster && socket.emit("sync signal", room, {
-    type: "seek",
-    timestamp: currentTime,
-    message: "hi",
-  });
+  isMaster &&
+    socket.emit("sync signal", room, {
+      type: "seek",
+      timestamp: currentTime,
+      message: "hi",
+    });
   console.log("send seek command");
-  
 });
-
 
 // video.addEventListener("pause", (event) => {
 //   {
@@ -101,13 +101,11 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   // listen for messages sent from background.js
   if (request.message === "hello!") {
     console.log(request.url); // new url is now in content scripts!
-    setTimeout(()=>{isMaster = true}, 250);
 
-    isMaster &&
-      socket.emit("sync signal", room, {
-        type: "url",
-        url: request.url,
-      });
+    socket.emit("sync signal", room, {
+      type: "url",
+      url: request.url,
+    });
     console.log(isMaster);
   }
 });
@@ -128,7 +126,7 @@ socket.on("signal", (data) => {
     console.log(message);
   } else if (data.type === "url") {
     console.log(data.url);
-    chrome.runtime.sendMessage({message:"recievedURL"});
+    chrome.runtime.sendMessage({ message: "recievedURL" });
     document.location.href = data.url;
   } else if (data.type === "seek") {
     video.currentTime = data.timestamp;
