@@ -1,6 +1,6 @@
 var currentUrl = window.location.href;
 console.log(currentUrl);
-const isMaster = false;
+var isMaster = false;
 
 var socket = io.connect("https://server-e5ic2cscaq-nn.a.run.app/");
 socket.on("connect", function () {
@@ -27,7 +27,6 @@ video.addEventListener("pause", (event) => {
   {
     console.log("video is paused");
     var currentTime = video.currentTime;
-    socket.emit("sync signal", {type:"master", timestamp:0, message:""});
     isMaster = true;
 
     isMaster && socket.emit("sync signal", room, {
@@ -44,7 +43,6 @@ video.addEventListener("play", (event) => {
   {
     console.log("video is playing");
     var currentTime = video.currentTime;
-    socket.emit("sync signal", {type:"master", timestamp:0, message:""});
     isMaster = true;
     isMaster && socket.emit("sync signal", room, {
       type: "play",
@@ -63,7 +61,8 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   // listen for messages sent from background.js
   if (request.message === "hello!") {
     console.log(request.url); // new url is now in content scripts!
-    socket.emit("sync signal", room, {
+    isMaster = true;
+    isMaster && socket.emit("sync signal", room, {
       type: "url",
       url: request.url,
     });
@@ -75,6 +74,7 @@ socket.on("signal", (data) => {
   console.log(data.type);
   console.log(data.message);
   console.log(data.timestamp);
+  isMaster = false;
   if (data.type === "play") {
     video.currentTime = data.timestamp;
     video.play();
@@ -86,8 +86,5 @@ socket.on("signal", (data) => {
   } else if (data.type === "url") {
     console.log(data.url);
     document.location.href = data.url;
-  } else if (data.type === "master"){
-    isMaster = false;
-
   }
 });
